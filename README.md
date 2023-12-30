@@ -38,7 +38,7 @@
 
     the response is the pdf file url.
 
-4. I had some problems with the PDF file - all the radiobuttons in the "favourite activity" have the same name 
+4. I had some problems with the PDF file - all the radiobuttons in the "favourite activity" part have the same name 
     and the "pdf-lib" uses this name as identifier. 
     To check this you can uncomment the lines 62,63 in the "PDFService.ts".
     Please be aware that the data you send to this PDF part can be displayed incorrectly.
