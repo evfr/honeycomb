@@ -46,11 +46,6 @@ class Server {
             // Continue with the request handling
             next();
         });
-        // Error handling middleware
-        this.app.use((err, req, res, next) => {
-            console.error(err.stack);
-            res.status(500).send('Something went wrong!');
-        });
     }
     configureRoutes() {
         const userController = new UserController_1.default();

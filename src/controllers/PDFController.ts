@@ -10,16 +10,21 @@ class PDFController {
   }
 
   public fillForm = async (req: Request, res: Response) : Promise<void> => {
-    const user: iUser = (req as any).user.user;
+    try {
+      const user: iUser = (req as any).user.user;
 
-    const { name, address, day, month, year, activities, favouriteActivity } = req.body;
+      const { name, address, day, month, year, activities, favouriteActivity } = req.body;
 
-    if (!name || !address || !day || !month || !year || !activities || !favouriteActivity) {
-      res.status(400).json({ message: 'Bad request. missing field "text"' });
+      if (!name || !address || !day || !month || !year || !activities || !favouriteActivity) {
+        res.status(400).json({ message: 'Bad request. missing field' });
+        return;
+      }
+      const userForm: iForm = { name, address, day, month, year, activities, favouriteActivity };
+      await this.pdfService.fillForm(user, userForm);
+      res.json('ok');
+    } catch (error) {
+      res.status(500).json({ message: 'Internal server error' });
     }
-    const userForm: iForm = { name, address, day, month, year, activities, favouriteActivity };
-    await this.pdfService.fillForm(user, userForm);
-    res.json('ok');
   };
 }
 
