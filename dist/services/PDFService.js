@@ -41,12 +41,12 @@ class PDFService {
             const shortMonthName = date.toLocaleString('default', { month: 'short' });
             form.getDropdown('Dropdown2').select(shortMonthName);
             form.getDropdown('Dropdown3').select(formData.year.toString());
-            const fields = form.getFields();
-            fields.forEach(field => {
-                const type = field.constructor.name;
-                const name = field.getName();
-                console.log(`${type}: ${name}`);
-            });
+            // const fields = form.getFields()
+            //  fields.forEach(field => {
+            //    const type = field.constructor.name
+            //    const name = field.getName()
+            //    console.log(`${type}: ${name}`)
+            //  });
             // fill activities
             formData.activities.forEach(act => {
                 form.getCheckBox(activitiesMappping[act.name]).check();
@@ -63,7 +63,10 @@ class PDFService {
             if (formData.favouriteActivity.name === "Other") {
                 form.getTextField('Text6').setText(formData.favouriteActivity.additionalFiled || '');
             }
-            (0, fs_1.writeFileSync)(`${formData.name}_${new Date().getTime()}.pdf`, yield document.save());
+            const filename = `${formData.name}_${new Date().getTime()}.pdf`;
+            const tempBytes = yield document.save();
+            const bytes = Buffer.from(tempBytes);
+            return { filename, bytes };
         });
     }
 }

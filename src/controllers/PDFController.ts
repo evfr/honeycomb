@@ -1,12 +1,15 @@
 import { Request, Response } from 'express';
 import PDFService from '../services/PDFService';
-import { iForm, iActivity, iUser } from '../types/types';
+import GoogleDriveService from '../services/GoogleDriveService';
+import { iForm, iPDFServiceResult, iUser } from '../types/types';
 
 class PDFController {
   private pdfService: PDFService;
+  private googleService: GoogleDriveService;
 
   constructor() {
     this.pdfService = new PDFService();
+    this.googleService = new GoogleDriveService();
   }
 
   public fillForm = async (req: Request, res: Response) : Promise<void> => {
@@ -20,8 +23,9 @@ class PDFController {
         return;
       }
       const userForm: iForm = { name, address, day, month, year, activities, favouriteActivity };
-      await this.pdfService.fillForm(user, userForm);
-      res.json('ok');
+      const pdfFile: iPDFServiceResult = await this.pdfService.fillForm(user, userForm);
+      const url = await this.googleService.upload(pdfFile);
+      res.json({url});
     } catch (error) {
       res.status(500).json({ message: 'Internal server error' });
     }

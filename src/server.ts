@@ -5,6 +5,7 @@ import UserController from './controllers/UserController';
 import PDFController from './controllers/PDFController';
 
 import DbService from './services/DbService';
+import GoogleDriveService from './services/GoogleDriveService';
 
 class Server {
   private app: express.Application;
@@ -60,6 +61,7 @@ class Server {
 
   public async start(): Promise<void> {
     await DbService.getDb();
+    GoogleDriveService.init();
     this.app.listen(this.port, () => {
       console.log(`Server is running on port ${this.port}`);
     });

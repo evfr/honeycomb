@@ -1,7 +1,10 @@
 
 import { PDFDocument } from 'pdf-lib';
-import { writeFileSync, readFileSync } from 'fs';
-import {iActivity, iForm, iUser} from '../types/types';
+import { readFileSync } from 'fs';
+import {iPDFServiceResult, iForm, iUser} from '../types/types';
+
+import { google } from 'googleapis';
+import * as stream from 'stream';
 
 const activitiesMappping = {
   Reading: "Check Box1",
@@ -18,7 +21,7 @@ const favouriteActivityMappping = {
 };
 
 class PDFService {
-    public async fillForm(user: iUser, formData: iForm): Promise<void> {
+    public async fillForm(user: iUser, formData: iForm): Promise<iPDFServiceResult> {
       const document = await PDFDocument.load(readFileSync("./sample_form.pdf"));
       const form = document.getForm();
     
@@ -39,12 +42,12 @@ class PDFService {
       form.getDropdown('Dropdown2').select(shortMonthName);
       form.getDropdown('Dropdown3').select(formData.year.toString());
   
-      const fields = form.getFields()
-       fields.forEach(field => {
-         const type = field.constructor.name
-         const name = field.getName()
-         console.log(`${type}: ${name}`)
-       });
+      // const fields = form.getFields()
+      //  fields.forEach(field => {
+      //    const type = field.constructor.name
+      //    const name = field.getName()
+      //    console.log(`${type}: ${name}`)
+      //  });
       
       // fill activities
       formData.activities.forEach(act => {
@@ -64,7 +67,11 @@ class PDFService {
         form.getTextField('Text6').setText(formData.favouriteActivity.additionalFiled || '');        
       }
       
-      writeFileSync(`${formData.name}_${new Date().getTime()}.pdf`, await document.save());
+      const filename = `${formData.name}_${new Date().getTime()}.pdf`;
+      const tempBytes = await document.save();
+      const bytes = Buffer.from(tempBytes);
+
+      return {filename, bytes};
     }
   }
   

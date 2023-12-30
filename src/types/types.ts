@@ -19,3 +19,9 @@ export interface iActivity {
     name: ActivityType,
     additionalFiled?: string
 }
+
+export interface iPDFServiceResult {
+    filename: string,
+    bytes: Buffer
+}
+

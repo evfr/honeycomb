@@ -17,6 +17,7 @@ const perf_hooks_1 = require("perf_hooks");
 const UserController_1 = __importDefault(require("./controllers/UserController"));
 const PDFController_1 = __importDefault(require("./controllers/PDFController"));
 const DbService_1 = __importDefault(require("./services/DbService"));
+const GoogleDriveService_1 = __importDefault(require("./services/GoogleDriveService"));
 class Server {
     constructor(port) {
         this.app = (0, express_1.default)();
@@ -57,6 +58,7 @@ class Server {
     start() {
         return __awaiter(this, void 0, void 0, function* () {
             yield DbService_1.default.getDb();
+            GoogleDriveService_1.default.init();
             this.app.listen(this.port, () => {
                 console.log(`Server is running on port ${this.port}`);
             });

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const PDFService_1 = __importDefault(require("../services/PDFService"));
+const GoogleDriveService_1 = __importDefault(require("../services/GoogleDriveService"));
 class PDFController {
     constructor() {
         this.fillForm = (req, res) => __awaiter(this, void 0, void 0, function* () {
@@ -24,14 +25,16 @@ class PDFController {
                     return;
                 }
                 const userForm = { name, address, day, month, year, activities, favouriteActivity };
-                yield this.pdfService.fillForm(user, userForm);
-                res.json('ok');
+                const pdfFile = yield this.pdfService.fillForm(user, userForm);
+                const url = yield this.googleService.upload(pdfFile);
+                res.json({ url });
             }
             catch (error) {
                 res.status(500).json({ message: 'Internal server error' });
             }
         });
         this.pdfService = new PDFService_1.default();
+        this.googleService = new GoogleDriveService_1.default();
     }
 }
 exports.default = PDFController;
