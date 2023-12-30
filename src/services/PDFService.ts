@@ -3,9 +3,6 @@ import { PDFDocument } from 'pdf-lib';
 import { readFileSync } from 'fs';
 import {iPDFServiceResult, iForm, iUser} from '../types/types';
 
-import { google } from 'googleapis';
-import * as stream from 'stream';
-
 const activitiesMappping = {
   Reading: "Check Box1",
   Walking: "Check Box2",
@@ -53,7 +50,7 @@ class PDFService {
       formData.activities.forEach(act => {
         form.getCheckBox(activitiesMappping[act.name]).check();
         if (act.name === "Other") {
-          form.getTextField('Text5').setText(act.additionalFiled || '');        
+          form.getTextField('Text5').setText(act.additionalField || '');        
         }
       });
 
@@ -64,7 +61,7 @@ class PDFService {
       ///////////////
       form.getRadioGroup('Group6').select(favouriteActivityMappping[formData.favouriteActivity.name]);
       if (formData.favouriteActivity.name === "Other") {
-        form.getTextField('Text6').setText(formData.favouriteActivity.additionalFiled || '');        
+        form.getTextField('Text6').setText(formData.favouriteActivity.additionalField || '');        
       }
       
       const filename = `${formData.name}_${new Date().getTime()}.pdf`;

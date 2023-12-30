@@ -17,7 +17,7 @@ type ActivityType = 'Reading' | 'Walking' | 'Music' | 'Other';
 
 export interface iActivity {
     name: ActivityType,
-    additionalFiled?: string
+    additionalField?: string
 }
 
 export interface iPDFServiceResult {

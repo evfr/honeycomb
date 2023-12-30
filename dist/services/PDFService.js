@@ -51,7 +51,7 @@ class PDFService {
             formData.activities.forEach(act => {
                 form.getCheckBox(activitiesMappping[act.name]).check();
                 if (act.name === "Other") {
-                    form.getTextField('Text5').setText(act.additionalFiled || '');
+                    form.getTextField('Text5').setText(act.additionalField || '');
                 }
             });
             // fill favourite activity
@@ -61,7 +61,7 @@ class PDFService {
             ///////////////
             form.getRadioGroup('Group6').select(favouriteActivityMappping[formData.favouriteActivity.name]);
             if (formData.favouriteActivity.name === "Other") {
-                form.getTextField('Text6').setText(formData.favouriteActivity.additionalFiled || '');
+                form.getTextField('Text6').setText(formData.favouriteActivity.additionalField || '');
             }
             const filename = `${formData.name}_${new Date().getTime()}.pdf`;
             const tempBytes = yield document.save();

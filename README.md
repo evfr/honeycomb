@@ -33,7 +33,7 @@
         "month": 11,
         "year": 2001,
         "activities" : [{"name": "Walking"}, {"name": "Music"}],
-        "favouriteActivity" : { "name": "Other", "additionalFiled": "nothing"}
+        "favouriteActivity" : { "name": "Other", "additionalField": "nothing"}
     }'
 
     the response is the pdf file url.
