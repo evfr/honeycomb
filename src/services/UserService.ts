@@ -11,7 +11,6 @@ class UserService {
       if (dbUser) {
         const user: iUser = {
           name: dbUser.name,
-          email: dbUser.email,
           pass: ''
         }
         return user;
@@ -25,7 +24,6 @@ class UserService {
       if (dbUser) {
         const user: iUser = {
           name: dbUser.name,
-          email: dbUser.email,
           pass: ''
         }
         return user;
@@ -33,9 +31,9 @@ class UserService {
       return null;
     }
   
-    public async createUser(name: string, pass: string, email: string): Promise<iUser | null> {
+    public async createUser(name: string, pass: string): Promise<iUser | null> {
       this.db = await DbService.getDb();
-      const newUser: iUser = { name, pass, email };
+      const newUser: iUser = { name, pass };
       await this.db.collection("users").insertOne(newUser);
       return newUser;
     }

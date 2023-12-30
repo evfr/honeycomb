@@ -21,7 +21,6 @@ class UserService {
             if (dbUser) {
                 const user = {
                     name: dbUser.name,
-                    email: dbUser.email,
                     pass: ''
                 };
                 return user;
@@ -36,7 +35,6 @@ class UserService {
             if (dbUser) {
                 const user = {
                     name: dbUser.name,
-                    email: dbUser.email,
                     pass: ''
                 };
                 return user;
@@ -44,10 +42,10 @@ class UserService {
             return null;
         });
     }
-    createUser(name, pass, email) {
+    createUser(name, pass) {
         return __awaiter(this, void 0, void 0, function* () {
             this.db = yield DbService_1.default.getDb();
-            const newUser = { name, pass, email };
+            const newUser = { name, pass };
             yield this.db.collection("users").insertOne(newUser);
             return newUser;
         });

@@ -17,13 +17,6 @@ class PDFController {
     constructor() {
         this.fillForm = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const user = req.user.user;
-            // name: string,
-            // address: string,
-            // day: number,
-            // month: Date,
-            // year: number,
-            // activities: iActivity[],
-            // favouriteActivity: iActivity
             const { name, address, day, month, year, activities, favouriteActivity } = req.body;
             if (!name || !address || !day || !month || !year || !activities || !favouriteActivity) {
                 res.status(400).json({ message: 'Bad request. missing field "text"' });

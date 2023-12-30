@@ -13,12 +13,12 @@ class UserController {
   }
 
   public signUp = async(req: Request, res: Response): Promise<void> => {
-    const { name, pass, email } = req.body;
-    if (!name || !pass ||!email) {
+    const { name, pass } = req.body;
+    if (!name || !pass) {
       res.status(400).json({ message: 'Bad request. missing field' });
     }
 
-    const newUser: iUser | null = await this.userService.createUser(name, pass, email);
+    const newUser: iUser | null = await this.userService.createUser(name, pass);
     res.json(newUser);
   };
 

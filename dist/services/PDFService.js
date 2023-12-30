@@ -56,8 +56,8 @@ class PDFService {
             });
             // fill favourite activity
             // there is some problem with the template - all the radio buttons in "Favourite activity" have the same name "Choice1"
-            const opts = form.getRadioGroup('Group6').getOptions();
-            opts.forEach(o => console.log(o));
+            // const opts = form.getRadioGroup('Group6').getOptions();
+            // opts.forEach(o => console.log(o));
             ///////////////
             form.getRadioGroup('Group6').select(favouriteActivityMappping[formData.favouriteActivity.name]);
             if (formData.favouriteActivity.name === "Other") {

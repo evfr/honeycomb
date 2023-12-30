@@ -1,6 +1,5 @@
 export interface iUser {
     name: string,
-    email: string,
     pass: string
 }
 

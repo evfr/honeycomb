@@ -12,14 +12,6 @@ class PDFController {
   public fillForm = async (req: Request, res: Response) : Promise<void> => {
     const user: iUser = (req as any).user.user;
 
-    // name: string,
-    // address: string,
-    // day: number,
-    // month: Date,
-    // year: number,
-    // activities: iActivity[],
-    // favouriteActivity: iActivity
-
     const { name, address, day, month, year, activities, favouriteActivity } = req.body;
 
     if (!name || !address || !day || !month || !year || !activities || !favouriteActivity) {

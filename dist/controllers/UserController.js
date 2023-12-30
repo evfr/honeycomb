@@ -18,11 +18,11 @@ const MY_SECRET = 'mySecret';
 class UserController {
     constructor() {
         this.signUp = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { name, pass, email } = req.body;
-            if (!name || !pass || !email) {
+            const { name, pass } = req.body;
+            if (!name || !pass) {
                 res.status(400).json({ message: 'Bad request. missing field' });
             }
-            const newUser = yield this.userService.createUser(name, pass, email);
+            const newUser = yield this.userService.createUser(name, pass);
             res.json(newUser);
         });
         this.login = (req, res) => __awaiter(this, void 0, void 0, function* () {
